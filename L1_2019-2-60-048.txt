@@ -1,0 +1,61 @@
+bombing = spark.read.json("Bombing_Operations.json.gz")
+
+aircraft = spark.read.json("Aircraft_Glossary.json.gz")
+
+
+Question 1:
+
+bombing.createOrReplaceTempView("bombing")
+get = """ select AirCraft,ContryFlyingMission,TargetCountry from  bombing where TimeOnTarget <  '1000' """
+run =  spark.sql(get)
+run.show()
+
+
+Question 2:
+
+get = """ select TargetCountry,TimeOnTarget from bombing order by TimeOnTarget desc """
+run = spark.sql(get)
+run.show()
+
+
+Question 3:
+
+get = """ select TargetCountry from  bombing where TimeOnTarget = ( select MAX(TimeOnTarget) from bombing ) """
+run = spark.sql(get)
+run.show()
+
+
+Question 4:
+
+get = """ select ContryFlyingMission from  bombing where TimeOnTarget = ( select MAX(TimeOnTarget) from bombing ) """
+run = spark.sql(get)
+run.show()
+
+
+Question 5:
+
+get = """ select TakeoffLocation, COUNT(TakeoffLocation) from  bombing  group by TakeoffLocation having count(TakeoffLocation) """
+run = spark.sql(get)
+run.show()
+
+Question 6:
+
+aircraft.createOrReplaceTempView("aircraft")
+get = """ select COUNT(aircraft) from  aircraft """
+run = spark.sql(get)
+run.show()
+
+
+Question 7:
+
+aircraft.createOrReplaceTempView("aircraft")
+get = """ select aircraft, COUNT(aircraft) from  aircraft  group by aircraft having count(aircraft) """
+run = spark.sql(get)
+run.show()
+
+Question 8:
+
+get = """ select MAX(aircraft) from aircraft  """
+run = spark.sql(get)
+run.show()
+
