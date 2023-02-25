@@ -59,3 +59,7 @@ get = """ select MAX(aircraft) from aircraft  """
 run = spark.sql(get)
 run.show()
 
+
+
+
+
