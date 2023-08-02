@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Navigation Example/Navigation Example Geometry 1.prefab.unity
+  isLoaded: 1
+  isActive: 1
